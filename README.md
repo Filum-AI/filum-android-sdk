@@ -8,18 +8,18 @@ Make sure to update `serverUrl` and `token` in `FILUM.initialize()` before runni
 
 ## Installation
 
-**Step 1: Add this repository as a submodule**
+**Step 1: Clone `filum-android-sdk` repository**
 
 ```sh
-git submodule add https://github.com/Filum-AI/filum-android-sdk
+git clone https://github.com/Filum-AI/filum-android-sdk
 ```
 
-**Step 2: Import above module as a module**
+**Step 2: Import above module as a module** 
 
 - In Android Studio, select `File` -> `New` -> `Import Module...`
-- Choose `filum_android_sdk`
+- Choose `filum-android-sdk`
 
-**Step 3: Implement filum_android_sdk in build.gradle**
+**Step 3: Implement filum-android-sdk in build.gradle**
 
 - Open `build.gradle` of your app
 - Add this line
@@ -28,7 +28,7 @@ git submodule add https://github.com/Filum-AI/filum-android-sdk
 ...
 dependencies {
     ...
-    implementation project(':filum_android_sdk')
+    implementation project(':filum-android-sdk')
     ...
 }
 ```
