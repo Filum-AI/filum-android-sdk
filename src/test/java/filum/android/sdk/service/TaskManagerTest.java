@@ -9,6 +9,7 @@ import org.junit.Test;
 import filum.android.sdk.constant.CommonConstant;
 import filum.android.sdk.constant.TaskType;
 import filum.android.sdk.entity.Event;
+import filum.android.sdk.entity.FilumEventBuilder;
 import filum.android.sdk.mock.JSONObjectMock;
 
 import static org.junit.Assert.*;
@@ -67,57 +68,17 @@ public class TaskManagerTest {
     }
 
     @Test
-    public void createAliasTask() {
-        assertEquals(0, taskManager.getTaskQueue().size());
-        taskManager.createAliasTask("user id");
-        assertEquals(1, taskManager.getTaskQueue().size());
-        assertEquals(TaskType.ALIAS, taskManager.getTaskQueue().peek().getType());
-    }
-
-    @Test
     public void createIdentifyTask() {
         assertEquals(0, taskManager.getTaskQueue().size());
-        taskManager.createIdentifyTask("user id");
+        Event identify;
+        FilumEventBuilder builder = new FilumEventBuilder();
+        builder.setEventName("Identify");
+        builder.setEventType("identify");
+        builder.setEventParams(new JSONObject());
+        identify = builder.getEvent();
+        taskManager.createIdentifyTask(identify);
         assertEquals(1, taskManager.getTaskQueue().size());
         assertEquals(TaskType.IDENTIFY, taskManager.getTaskQueue().peek().getType());
-    }
-
-    @Test
-    public void createUpdateProfileTask() {
-        assertEquals(0, taskManager.getTaskQueue().size());
-        taskManager.createUpdateProfileTask(new JSONObject());
-        assertEquals(1, taskManager.getTaskQueue().size());
-        assertEquals(TaskType.UPDATE_PROFILE, taskManager.getTaskQueue().peek().getType());
-    }
-
-    @Test
-    public void createIncreasePropertyTask() {
-        assertEquals(0, taskManager.getTaskQueue().size());
-        taskManager.createIncreasePropertyTask("count", 1);
-        assertEquals(1, taskManager.getTaskQueue().size());
-        assertEquals(TaskType.INCREASE_PROPERTY, taskManager.getTaskQueue().peek().getType());
-    }
-
-    @Test
-    public void createAppendToPropertyTask() {
-        JSONArray tags = new JSONArray();
-        tags.put("red");
-        tags.put("blue");
-        assertEquals(0, taskManager.getTaskQueue().size());
-        taskManager.createAppendToPropertyTask("tags", tags);
-        assertEquals(1, taskManager.getTaskQueue().size());
-        assertEquals(TaskType.APPEND_TO_PROPERTY, taskManager.getTaskQueue().peek().getType());
-    }
-
-    @Test
-    public void createRemoveFromPropertyTask() {
-        JSONArray tags = new JSONArray();
-        tags.put("red");
-        tags.put("blue");
-        assertEquals(0, taskManager.getTaskQueue().size());
-        taskManager.createRemoveFromPropertyTask("tags", tags);
-        assertEquals(1, taskManager.getTaskQueue().size());
-        assertEquals(TaskType.REMOVE_FROM_PROPERTY, taskManager.getTaskQueue().peek().getType());
     }
 
     @Test

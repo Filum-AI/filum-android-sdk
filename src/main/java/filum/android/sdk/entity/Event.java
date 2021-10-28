@@ -75,6 +75,50 @@ public class Event implements Serializable {
         this.origin = origin;
     }
 
+    public String getAnonymousID() {
+        return anonymousID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public JSONObject getContext() {
+        return context;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getOriginalTimestamp() {
+        return originalTimestamp;
+    }
+
+    public String getSentAt() {
+        return sentAt;
+    }
+
+    public String getReceivedAt() {
+        return receivedAt;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public JSONObject getEventParams() {
+        return eventParams;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
     public JSONObject serialize() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(CommonProps.ANONYMOUS_ID, this.anonymousID);
@@ -94,13 +138,15 @@ public class Event implements Serializable {
         // Append customProps
         if (eventParams != null) {
             Iterator<String> customEventParamKeys = eventParams.keys();
-            while (customEventParamKeys.hasNext()) {
-                String key = customEventParamKeys.next();
-                Object value = null;
-                if (!eventParams.isNull(key)) {
-                    value = eventParams.get(key);
-                    JSONObject filumValue = convertToFilumItem(key, value);
-                    eventParamsJSONArray.put(filumValue);
+            if (customEventParamKeys != null){
+                while (customEventParamKeys.hasNext()) {
+                    String key = customEventParamKeys.next();
+                    Object value = null;
+                    if (!eventParams.isNull(key)) {
+                        value = eventParams.get(key);
+                        JSONObject filumValue = convertToFilumItem(key, value);
+                        eventParamsJSONArray.put(filumValue);
+                    }
                 }
             }
         }
@@ -125,7 +171,7 @@ public class Event implements Serializable {
         else if(value instanceof Float){
             json.put("key", key);
             JSONObject value_json = new JSONObject();
-            value_json.put("float_value", value);
+            value_json.put("double_value", value);
             json.put("value", value_json);
         }
         else if(value instanceof Double){
