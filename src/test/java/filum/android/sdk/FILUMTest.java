@@ -168,8 +168,7 @@ public class FILUMTest {
     public void identify() {
         String userId = "test_user_id";
         filum.identify(userId, new JSONObject());
-        verify(taskManager, times(1)).createIdentifyTask(userId,
-                new JSONObject());
+        verify(taskManager, times(1)).createIdentifyTask(any(Event.class));
     }
 
     @Test
